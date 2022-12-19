@@ -22,28 +22,29 @@ function onInput(){
 
 function onSubmit(e) {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget)
+        const {elements: { email, message }} = e.currentTarget;
+        const data = {
+            email: email.value,
+            message: message.value,
+        }
 
-    if (form.elements.email.value === '' || form.elements.message.value == '') {
+    if (email.value === '' || message.value == '') {
                 return alert('Всі поля повинні бути заповнені')
             };
 
-        formData.forEach((value, name) => {
-            
+        console.log(data);
 
-            return console.log(name, value);
-        })   
         localStorage.removeItem(SUBMIT_VALUE)
         return form.reset();
     }
 
 function autoFill() {
-    const values = JSON.parse(localStorage.getItem(SUBMIT_VALUE))
-    const {email, message} = values;
-
-    if (!localStorage.getItem(SUBMIT_VALUE)) {
+    const values = localStorage.getItem(SUBMIT_VALUE)
+    
+    if (!values) {
         return
     }
+    const {email, message} = JSON.parse(values);
         form.elements.email.value = email;
         form.elements.message.value = message;
 }

@@ -25,8 +25,14 @@ function onPlayVolume(data) {
 function playOnPause(){
     const pause = JSON.parse(localStorage.getItem(STOR_KEY))
     const soung = JSON.parse(localStorage.getItem(VOLUME))
-
+    if (!localStorage.getItem(STOR_KEY)) {
+        return
+    }
     player.setCurrentTime(pause.seconds)
+    
+    if (!localStorage.getItem(VOLUME)) {
+        return
+    }
     player.setVolume(soung.volume)
 
 }
